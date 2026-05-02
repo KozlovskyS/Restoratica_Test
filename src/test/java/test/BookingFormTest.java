@@ -22,8 +22,8 @@ public class BookingFormTest {
     }
     @BeforeEach
     public void setUp() {
-        open("http://localhost:3000/");
-        //$$("button").findBy(text("Make a Reservation")).click();
+        //open("http://localhost:3000/");
+        open("https://resto.skroy.ru/");
     }
     @AfterAll
     static void tearDownAll() {
