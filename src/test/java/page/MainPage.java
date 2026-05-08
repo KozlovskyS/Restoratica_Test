@@ -8,7 +8,6 @@ import static com.codeborne.selenide.Selenide.$$;
 public class MainPage {
     private  final SelenideElement choiceReservationButton = $$("a").findBy(text("Создать заявку"));
     private  final SelenideElement choicePortalButton = $$("a").findBy(text("Войти в портал"));
-    private  final SelenideElement choiceViewBookings= $$("button").findBy(text("View Bookings"));
 
     public BookingFormPage choiceReservation() {
         choiceReservationButton.click();
@@ -16,7 +15,7 @@ public class MainPage {
     }
 
     public AdminPage choiceAdmin() {
-        choiceViewBookings.click();
+        choicePortalButton.click();
         return new AdminPage();
     }
 }
