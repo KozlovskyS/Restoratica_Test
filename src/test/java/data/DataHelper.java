@@ -1,10 +1,13 @@
 package data;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import page.BookingFormPage;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class DataHelper {
@@ -60,4 +63,7 @@ public class DataHelper {
         reservedTime = LocalTime.now().plusHours(hourAdded);
         return reservedTime;
     }
+//    public static boolean isElementActive (SelenideElement element){
+//        return element.isDisplayed() && element.isEnabled();
+//    }
 }

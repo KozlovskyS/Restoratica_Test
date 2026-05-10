@@ -76,6 +76,18 @@ public class BookingFormPage {
         phoneField.sendKeys(telNumber);
     }
 
+    public String getTextField(SelenideElement element){
+        String text = element.getText();
+        String valueText = element.getValue();
+        if (text.isEmpty()) {
+            return valueText;
+        }
+        return text;
+    }
+    public String getPhone () {
+        return getTextField(phoneField);
+    }
+
     public void setGuest(String number) {
         guestField.shouldBe(visible, Duration.ofSeconds(10));
         guestField.sendKeys(number);
@@ -296,4 +308,8 @@ public class BookingFormPage {
     public void verifyAlertSuccess() {
         alertSuccessText.shouldBe(visible, Duration.ofSeconds(3));
     }
+
+     public void isSendButtonDisabled(){
+        buttonSend.shouldBe(disabled);
+     }
 }
