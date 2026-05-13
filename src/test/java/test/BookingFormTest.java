@@ -1,7 +1,10 @@
 package test;
 
+import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import data.DataHelper;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 import io.qameta.allure.selenide.AllureSelenide;
@@ -19,11 +22,27 @@ public class BookingFormTest {
 
     @BeforeAll
     static void setUpAll() {
+        //борьба за кодировку
+        System.setProperty("file.encoding", "UTF-8");
+        System.setProperty("sun.jnu.encoding", "UTF-8");
+        System.setProperty("file.encoding", "UTF-8");
+        System.setProperty("sun.jnu.encoding", "UTF-8");
+        // Выводим текущие значения для проверки
+        System.out.println("File encoding: " + System.getProperty("file.encoding"));
+        System.out.println("Sun JNU encoding: " + System.getProperty("sun.jnu.encoding"));
+
         SelenideLogger.addListener("allure", new AllureSelenide());
+
     }
 
     @BeforeEach
     public void setUp() {
+        // Автоматически подбирает и устанавливает chromedriver
+        WebDriverManager.chromedriver().setup();
+        // Настройки Selenide
+        Configuration.browser = "chrome";
+        Configuration.screenshots = true;
+        Configuration.headless = true;
         //open("http://localhost:3000/");
         open("https://resto.skroy.ru/");
     }
@@ -38,6 +57,7 @@ public class BookingFormTest {
         switchTo().defaultContent();
         closeWebDriver();
     }
+
 
     @Test
     @DisplayName("Отправка заявки с валидными данными")
@@ -89,6 +109,7 @@ public class BookingFormTest {
         //bookingFormPage.verifyAlertSuccess();
         switchTo().defaultContent();
     }
+
     @Test
     @DisplayName("Отправка заявки с именем на латинице")
     @Description("Отправка заявки с именем на латинице")
@@ -140,6 +161,7 @@ public class BookingFormTest {
         bookingFormPage.verifyAlertSuccess();
         switchTo().defaultContent();
     }
+
     @Test
     @DisplayName("Отправка заявки с коротким именем")
     @Description("Отправка заявки с коротким именем из двух букв")
@@ -388,7 +410,7 @@ public class BookingFormTest {
         bookingFormPage.setPhone("9991112233");
         bookingFormPage.setGuest("4");
         bookingFormPage.setWishes("очень много пожеланий werv vghhh 2345 %^^^");
-                        //bookingFormPage.setDate(-2); // установить дату на Х дней вперед (- назад)
+        //bookingFormPage.setDate(-2); // установить дату на Х дней вперед (- назад)
         targetTime = DataHelper.generateRandomTime(10, 0, 23, 30); //выбрать рандомное время из диапазона
         //targetTime = DataHelper.setOffsetTime(-2); //выбрать время текущее + Х
         DataHelper.getTargetTime(targetTime);
@@ -400,6 +422,7 @@ public class BookingFormTest {
         //bookingFormPage.verifyAlertSuccess();
         switchTo().defaultContent();
     }
+
     @Test
     @DisplayName("Выбор даты в прошлом")
     @Description("Неуспешная отправка - Выбор даты из прошлого")
