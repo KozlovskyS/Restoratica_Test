@@ -13,6 +13,7 @@ import static com.codeborne.selenide.Selectors.byClassName;
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.files.DownloadActions.click;
+import static data.Data.emptyField;
 import static data.DataHelper.*;
 
 public class BookingFormPage {
@@ -66,17 +67,32 @@ public class BookingFormPage {
         heading.shouldBe(visible);
     }
 
+    public void inputValidData() {
+        setName(DataHelper.generatePhrase("ru", false, false, 10));
+        setPhone(DataHelper.generateRandomNumber(10));
+        setGuest("4");
+        setWishes(emptyField);
+        setDate(2); // установить дату на Х дней вперед (- назад)
+        targetTime = DataHelper.generateRandomTime(10, 0, 23, 30); //выбрать рандомное время из диапазона
+        DataHelper.getTargetTime(targetTime);
+        setTime(targetHour, targetMinute);
+        setCheckBox();
+        verifyCheckBox();
+    }
+
     public void setName(String name) {
         nameField.shouldBe(visible, Duration.ofSeconds(10));
+        nameField.clear();
         nameField.sendKeys(name);
     }
 
     public void setPhone(String telNumber) {
         phoneField.shouldBe(visible, Duration.ofSeconds(10));
+        phoneField.clear();
         phoneField.sendKeys(telNumber);
     }
 
-    public String getTextField(SelenideElement element){
+    public String getTextField(SelenideElement element) {
         String text = element.getText();
         String valueText = element.getValue();
         if (text.isEmpty()) {
@@ -84,7 +100,8 @@ public class BookingFormPage {
         }
         return text;
     }
-    public String getPhone () {
+
+    public String getPhone() {
         return getTextField(phoneField);
     }
 
@@ -114,6 +131,10 @@ public class BookingFormPage {
         navigateToTargetMonthAndYear();
         selectDateInCalendar();
         verifyDateSelected(dateField);
+    }
+    public void clearDateField() {
+        dateField.shouldBe(visible);
+        dateField.clear();
     }
 
     private void waitForCalendar() {
@@ -302,14 +323,16 @@ public class BookingFormPage {
     public void setCheckBox() {
         checkBox.shouldBe(visible).click();
     }
-    public void verifyCheckBox(){
+
+    public void verifyCheckBox() {
         checkBoxChecked.shouldBe(visible);
     }
+
     public void verifyAlertSuccess() {
         alertSuccessText.shouldBe(visible, Duration.ofSeconds(3));
     }
 
-     public void isSendButtonDisabled(){
+    public void isSendButtonDisabled() {
         buttonSend.shouldBe(disabled);
-     }
+    }
 }

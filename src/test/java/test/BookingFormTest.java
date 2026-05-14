@@ -14,6 +14,7 @@ import page.MainPage;
 import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Selenide.*;
+import static data.Data.*;
 import static data.DataHelper.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -68,17 +69,7 @@ public class BookingFormTest {
         var bookingFormPage = mainPage.choiceReservation();
         switchTo().frame($("iframe"));
 
-        bookingFormPage.setName("Тестовое Имя");
-        bookingFormPage.setPhone("9991112233");
-        bookingFormPage.setGuest("4");
-        bookingFormPage.setWishes("очень много пожеланий werv vghhh 2345 %^^^");
-        bookingFormPage.setDate(1); // установить дату на Х дней вперед (- назад)
-        targetTime = DataHelper.generateRandomTime(10, 0, 23, 30); //выбрать рандомное время из диапазона
-        //targetTime = DataHelper.setOffsetTime(-2); //выбрать время текущее + Х
-        DataHelper.getTargetTime(targetTime);
-        bookingFormPage.setTime(targetHour, targetMinute);
-        bookingFormPage.setCheckBox();
-        bookingFormPage.verifyCheckBox();
+        bookingFormPage.inputValidData();
         bookingFormPage.clickSendButton();
         bookingFormPage.verifyAlertSuccess();
 //        switchTo().defaultContent();
@@ -93,17 +84,8 @@ public class BookingFormTest {
         var bookingFormPage = mainPage.choiceReservation();
         switchTo().frame($("iframe"));
 
-        bookingFormPage.setName("");
-        bookingFormPage.setPhone("9991112233");
-        bookingFormPage.setGuest("4");
-        bookingFormPage.setWishes("очень много пожеланий werv vghhh 2345 %^^^");
-        bookingFormPage.setDate(2); // установить дату на Х дней вперед (- назад)
-        targetTime = DataHelper.generateRandomTime(10, 0, 23, 30); //выбрать рандомное время из диапазона
-        //targetTime = DataHelper.setOffsetTime(-2); //выбрать время текущее + Х
-        DataHelper.getTargetTime(targetTime);
-        bookingFormPage.setTime(targetHour, targetMinute);
-        bookingFormPage.setCheckBox();
-        bookingFormPage.verifyCheckBox();
+        bookingFormPage.inputValidData();
+        bookingFormPage.setName(emptyField);
         bookingFormPage.isSendButtonDisabled();
         //bookingFormPage.clickSendButton();
         //bookingFormPage.verifyAlertSuccess();
@@ -119,17 +101,8 @@ public class BookingFormTest {
         var bookingFormPage = mainPage.choiceReservation();
         switchTo().frame($("iframe"));
 
-        bookingFormPage.setName("Vasiliy");
-        bookingFormPage.setPhone("9991112233");
-        bookingFormPage.setGuest("4");
-        bookingFormPage.setWishes("очень много пожеланий werv vghhh 2345 %^^^");
-        bookingFormPage.setDate(2); // установить дату на Х дней вперед (- назад)
-        targetTime = DataHelper.generateRandomTime(10, 0, 23, 30); //выбрать рандомное время из диапазона
-        //targetTime = DataHelper.setOffsetTime(-2); //выбрать время текущее + Х
-        DataHelper.getTargetTime(targetTime);
-        bookingFormPage.setTime(targetHour, targetMinute);
-        bookingFormPage.setCheckBox();
-        bookingFormPage.verifyCheckBox();
+        bookingFormPage.inputValidData();
+        bookingFormPage.setName(DataHelper.generatePhrase("en", false, false, 8));
         //bookingFormPage.isSendButtonDisabled();
         bookingFormPage.clickSendButton();
         bookingFormPage.verifyAlertSuccess();
@@ -145,17 +118,8 @@ public class BookingFormTest {
         var bookingFormPage = mainPage.choiceReservation();
         switchTo().frame($("iframe"));
 
+        bookingFormPage.inputValidData();
         bookingFormPage.setName("Анна-Мария");
-        bookingFormPage.setPhone("9991112233");
-        bookingFormPage.setGuest("4");
-        bookingFormPage.setWishes("очень много пожеланий werv vghhh 2345 %^^^");
-        bookingFormPage.setDate(2); // установить дату на Х дней вперед (- назад)
-        targetTime = DataHelper.generateRandomTime(10, 0, 23, 30); //выбрать рандомное время из диапазона
-        //targetTime = DataHelper.setOffsetTime(-2); //выбрать время текущее + Х
-        DataHelper.getTargetTime(targetTime);
-        bookingFormPage.setTime(targetHour, targetMinute);
-        bookingFormPage.setCheckBox();
-        bookingFormPage.verifyCheckBox();
         //bookingFormPage.isSendButtonDisabled();
         bookingFormPage.clickSendButton();
         bookingFormPage.verifyAlertSuccess();
@@ -171,17 +135,8 @@ public class BookingFormTest {
         var bookingFormPage = mainPage.choiceReservation();
         switchTo().frame($("iframe"));
 
-        bookingFormPage.setName("Ян");
-        bookingFormPage.setPhone("9991112233");
-        bookingFormPage.setGuest("4");
-        bookingFormPage.setWishes("много пожеланий werv vghhh 2345 %^^^");
-        bookingFormPage.setDate(2); // установить дату на Х дней вперед (- назад)
-        targetTime = DataHelper.generateRandomTime(10, 0, 23, 30); //выбрать рандомное время из диапазона
-        //targetTime = DataHelper.setOffsetTime(-2); //выбрать время текущее + Х
-        DataHelper.getTargetTime(targetTime);
-        bookingFormPage.setTime(targetHour, targetMinute);
-        bookingFormPage.setCheckBox();
-        bookingFormPage.verifyCheckBox();
+        bookingFormPage.inputValidData();
+        bookingFormPage.setName(DataHelper.generatePhrase("ru", false, false, 2));
         //bookingFormPage.isSendButtonDisabled();
         bookingFormPage.clickSendButton();
         bookingFormPage.verifyAlertSuccess();
@@ -197,17 +152,9 @@ public class BookingFormTest {
         var bookingFormPage = mainPage.choiceReservation();
         switchTo().frame($("iframe"));
 
-        bookingFormPage.setName("ЙФоврариаь йцычсвакен кепаьтмрапвй QWe");
-        bookingFormPage.setPhone("9991112233");
-        bookingFormPage.setGuest("4");
-        bookingFormPage.setWishes("много пожеланий werv vghhh 2345 %^^^");
-        bookingFormPage.setDate(2); // установить дату на Х дней вперед (- назад)
-        targetTime = DataHelper.generateRandomTime(10, 0, 23, 30); //выбрать рандомное время из диапазона
-        //targetTime = DataHelper.setOffsetTime(-2); //выбрать время текущее + Х
-        DataHelper.getTargetTime(targetTime);
-        bookingFormPage.setTime(targetHour, targetMinute);
-        bookingFormPage.setCheckBox();
-        bookingFormPage.verifyCheckBox();
+        bookingFormPage.inputValidData();
+        bookingFormPage.setName(DataHelper.generatePhrase("ru", false, false, 31));
+
         bookingFormPage.isSendButtonDisabled();
         //bookingFormPage.clickSendButton();
         //bookingFormPage.verifyAlertSuccess();
@@ -224,17 +171,9 @@ public class BookingFormTest {
         var bookingFormPage = mainPage.choiceReservation();
         switchTo().frame($("iframe"));
 
-        bookingFormPage.setName("Ян");
-        bookingFormPage.setPhone("9991112233");
-        bookingFormPage.setGuest("4");
-        bookingFormPage.setWishes("много пожеланий werv vghhh 2345 %^^^");
-        bookingFormPage.setDate(2); // установить дату на Х дней вперед (- назад)
-        targetTime = DataHelper.generateRandomTime(10, 0, 23, 30); //выбрать рандомное время из диапазона
-        //targetTime = DataHelper.setOffsetTime(-2); //выбрать время текущее + Х
-        DataHelper.getTargetTime(targetTime);
-        bookingFormPage.setTime(targetHour, targetMinute);
-        bookingFormPage.setCheckBox();
-        bookingFormPage.verifyCheckBox();
+        bookingFormPage.inputValidData();
+        bookingFormPage.setName(DataHelper.generatePhrase("ru", false, true, 10));
+
         bookingFormPage.isSendButtonDisabled();
         //bookingFormPage.clickSendButton();
         //bookingFormPage.verifyAlertSuccess();
@@ -250,17 +189,9 @@ public class BookingFormTest {
         var bookingFormPage = mainPage.choiceReservation();
         switchTo().frame($("iframe"));
 
-        bookingFormPage.setName("№;%::?");
-        bookingFormPage.setPhone("9991112233");
-        bookingFormPage.setGuest("4");
-        bookingFormPage.setWishes("много пожеланий werv vghhh 2345 %^^^");
-        bookingFormPage.setDate(2); // установить дату на Х дней вперед (- назад)
-        targetTime = DataHelper.generateRandomTime(10, 0, 23, 30); //выбрать рандомное время из диапазона
-        //targetTime = DataHelper.setOffsetTime(-2); //выбрать время текущее + Х
-        DataHelper.getTargetTime(targetTime);
-        bookingFormPage.setTime(targetHour, targetMinute);
-        bookingFormPage.setCheckBox();
-        bookingFormPage.verifyCheckBox();
+        bookingFormPage.inputValidData();
+        bookingFormPage.setName(DataHelper.generatePhrase("ru", true, false, 12));
+
         bookingFormPage.isSendButtonDisabled();
         //bookingFormPage.clickSendButton();
         //bookingFormPage.verifyAlertSuccess();
@@ -276,17 +207,9 @@ public class BookingFormTest {
         var bookingFormPage = mainPage.choiceReservation();
         switchTo().frame($("iframe"));
 
+        bookingFormPage.inputValidData();
         bookingFormPage.setName(" ");
-        bookingFormPage.setPhone("9991112233");
-        bookingFormPage.setGuest("4");
-        bookingFormPage.setWishes("много пожеланий werv vghhh 2345 %^^^");
-        bookingFormPage.setDate(2); // установить дату на Х дней вперед (- назад)
-        targetTime = DataHelper.generateRandomTime(10, 0, 23, 30); //выбрать рандомное время из диапазона
-        //targetTime = DataHelper.setOffsetTime(-2); //выбрать время текущее + Х
-        DataHelper.getTargetTime(targetTime);
-        bookingFormPage.setTime(targetHour, targetMinute);
-        bookingFormPage.setCheckBox();
-        bookingFormPage.verifyCheckBox();
+
         bookingFormPage.isSendButtonDisabled();
         //bookingFormPage.clickSendButton();
         //bookingFormPage.verifyAlertSuccess();
@@ -294,7 +217,7 @@ public class BookingFormTest {
     }
 
     @Test
-    @DisplayName("Отправка заявки с без номера телефона")
+    @DisplayName("Отправка заявки  без номера телефона")
     @Description("Отправка заявки с пустым полем номера телефона")
     void testPhoneIsEmpty() {
         MainPage mainPage = new MainPage();
@@ -302,17 +225,9 @@ public class BookingFormTest {
         var bookingFormPage = mainPage.choiceReservation();
         switchTo().frame($("iframe"));
 
-        bookingFormPage.setName("Телефона нет");
+        bookingFormPage.inputValidData();
         bookingFormPage.setPhone("");
-        bookingFormPage.setGuest("4");
-        bookingFormPage.setWishes("много пожеланий werv vghhh 2345 %^^^");
-        bookingFormPage.setDate(2); // установить дату на Х дней вперед (- назад)
-        targetTime = DataHelper.generateRandomTime(10, 0, 23, 30); //выбрать рандомное время из диапазона
-        //targetTime = DataHelper.setOffsetTime(-2); //выбрать время текущее + Х
-        DataHelper.getTargetTime(targetTime);
-        bookingFormPage.setTime(targetHour, targetMinute);
-        bookingFormPage.setCheckBox();
-        bookingFormPage.verifyCheckBox();
+
         bookingFormPage.isSendButtonDisabled();
         //bookingFormPage.clickSendButton();
         //bookingFormPage.verifyAlertSuccess();
@@ -328,8 +243,8 @@ public class BookingFormTest {
         var bookingFormPage = mainPage.choiceReservation();
         switchTo().frame($("iframe"));
 
-        bookingFormPage.setName("Телефон as");
-        String phone = "as";   //вводим символы
+        bookingFormPage.inputValidData();
+        String phone = DataHelper.generatePhrase("en", false, false, 3);   //вводим символы
         bookingFormPage.setPhone(phone);
         String numberPhone = bookingFormPage.getPhone();
         assertFalse(numberPhone.contains(phone));
@@ -345,8 +260,8 @@ public class BookingFormTest {
         var bookingFormPage = mainPage.choiceReservation();
         switchTo().frame($("iframe"));
 
-        bookingFormPage.setName("Телефон #$");
-        String phone = "#$";
+        bookingFormPage.inputValidData();
+        String phone = DataHelper.generatePhrase("", true, false, 4);
         bookingFormPage.setPhone(phone);
         String numberPhone = bookingFormPage.getPhone();
         assertFalse(numberPhone.contains(phone));
@@ -362,18 +277,9 @@ public class BookingFormTest {
         var bookingFormPage = mainPage.choiceReservation();
         switchTo().frame($("iframe"));
 
-        bookingFormPage.setName("Телефон котроткий");
-        String phone = "999123";
+        bookingFormPage.inputValidData();
+        String phone = DataHelper.generateRandomNumber(8);
         bookingFormPage.setPhone(phone);
-        bookingFormPage.setGuest("4");
-        bookingFormPage.setWishes("много пожеланий werv vghhh 2345 %^^^");
-        bookingFormPage.setDate(2); // установить дату на Х дней вперед (- назад)
-        targetTime = DataHelper.generateRandomTime(10, 0, 23, 30); //выбрать рандомное время из диапазона
-        //targetTime = DataHelper.setOffsetTime(-2); //выбрать время текущее + Х
-        DataHelper.getTargetTime(targetTime);
-        bookingFormPage.setTime(targetHour, targetMinute);
-        bookingFormPage.setCheckBox();
-        bookingFormPage.verifyCheckBox();
         bookingFormPage.isSendButtonDisabled();
         //bookingFormPage.clickSendButton();
         //bookingFormPage.verifyAlertSuccess();
@@ -389,8 +295,8 @@ public class BookingFormTest {
         var bookingFormPage = mainPage.choiceReservation();
         switchTo().frame($("iframe"));
 
-        bookingFormPage.setName("Телефон длинный");
-        String phone = "9998885522";
+        bookingFormPage.inputValidData();
+        String phone = DataHelper.generateRandomNumber(10);
         bookingFormPage.setPhone(phone + "333");
         String numberPhone = bookingFormPage.getPhone().replaceAll("\\D", "");
         assertTrue(numberPhone.contains(phone));
@@ -406,10 +312,10 @@ public class BookingFormTest {
         var bookingFormPage = mainPage.choiceReservation();
         switchTo().frame($("iframe"));
 
-        bookingFormPage.setName("Тестовое Имя");
-        bookingFormPage.setPhone("9991112233");
+        bookingFormPage.setName(DataHelper.generatePhrase("ru", false, false, 12));
+        bookingFormPage.setPhone(DataHelper.generateRandomNumber(10));
         bookingFormPage.setGuest("4");
-        bookingFormPage.setWishes("очень много пожеланий werv vghhh 2345 %^^^");
+        bookingFormPage.setWishes(DataHelper.generatePhrase("ru", true, true, 35));
         //bookingFormPage.setDate(-2); // установить дату на Х дней вперед (- назад)
         targetTime = DataHelper.generateRandomTime(10, 0, 23, 30); //выбрать рандомное время из диапазона
         //targetTime = DataHelper.setOffsetTime(-2); //выбрать время текущее + Х
@@ -432,17 +338,10 @@ public class BookingFormTest {
         var bookingFormPage = mainPage.choiceReservation();
         switchTo().frame($("iframe"));
 
-        bookingFormPage.setName("Тестовое Имя");
-        bookingFormPage.setPhone("9991112233");
-        bookingFormPage.setGuest("4");
-        bookingFormPage.setWishes("очень много пожеланий werv vghhh 2345 %^^^");
+        bookingFormPage.inputValidData();
+        bookingFormPage.clearDateField();
         bookingFormPage.setDate(-2); // установить дату на Х дней вперед (- назад)
-        targetTime = DataHelper.generateRandomTime(10, 0, 23, 30); //выбрать рандомное время из диапазона
-        //targetTime = DataHelper.setOffsetTime(-2); //выбрать время текущее + Х
-        DataHelper.getTargetTime(targetTime);
-        bookingFormPage.setTime(targetHour, targetMinute);
-        bookingFormPage.setCheckBox();
-        bookingFormPage.verifyCheckBox();
+
         bookingFormPage.isSendButtonDisabled();
         //bookingFormPage.clickSendButton();
         //bookingFormPage.verifyAlertSuccess();
@@ -458,18 +357,46 @@ public class BookingFormTest {
         var bookingFormPage = mainPage.choiceReservation();
         switchTo().frame($("iframe"));
 
-        bookingFormPage.setName("Имя Нет согласия");
-        bookingFormPage.setPhone("9991112233");
-        bookingFormPage.setGuest("4");
-        bookingFormPage.setWishes("очень много пожеланий werv vghhh 2345 %^^^");
-        bookingFormPage.setDate(1); // установить дату на Х дней вперед (- назад)
-        targetTime = DataHelper.generateRandomTime(10, 0, 23, 30); //выбрать рандомное время из диапазона
-        //targetTime = DataHelper.setOffsetTime(-2); //выбрать время текущее + Х
-        DataHelper.getTargetTime(targetTime);
-        bookingFormPage.setTime(targetHour, targetMinute);
-        bookingFormPage.setCheckBox(); //поставить отметку
+        bookingFormPage.inputValidData();
         bookingFormPage.setCheckBox();  //снять отметку
         //bookingFormPage.verifyCheckBox();
+        bookingFormPage.isSendButtonDisabled();
+        //bookingFormPage.clickSendButton();
+        //bookingFormPage.verifyAlertSuccess();
+        switchTo().defaultContent();
+    }
+
+    @Test
+    @DisplayName("Проверка на XSS уязвимость")
+    @Description("Отправка заявки с  XSS иньекцией в поле имени")
+    void testXSSInjectToLoginField() {
+        MainPage mainPage = new MainPage();
+        DataHelper dataHelper = new DataHelper();
+        var bookingFormPage = mainPage.choiceReservation();
+        switchTo().frame($("iframe"));
+
+
+        bookingFormPage.inputValidData();
+        bookingFormPage.setName(xssInject);
+
+        bookingFormPage.isSendButtonDisabled();
+        //bookingFormPage.clickSendButton();
+        //bookingFormPage.verifyAlertSuccess();
+        switchTo().defaultContent();
+    }
+
+    @Test
+    @DisplayName("Проверка на SQL уязвимость")
+    @Description("Отправка заявки с  SQL иньекцией в поле имени")
+    void testSQLInjectToLoginField() {
+        MainPage mainPage = new MainPage();
+        DataHelper dataHelper = new DataHelper();
+        var bookingFormPage = mainPage.choiceReservation();
+        switchTo().frame($("iframe"));
+
+        bookingFormPage.inputValidData();
+        bookingFormPage.setName(sqlInject);
+
         bookingFormPage.isSendButtonDisabled();
         //bookingFormPage.clickSendButton();
         //bookingFormPage.verifyAlertSuccess();
