@@ -14,8 +14,8 @@ public class MainPage {
         return new BookingFormPage();
     }
 
-    public AdminPage choiceAdmin() {
+    public LoginPage choiceAdmin() {
         choicePortalButton.click();
-        return new AdminPage();
+        return new LoginPage();
     }
 }

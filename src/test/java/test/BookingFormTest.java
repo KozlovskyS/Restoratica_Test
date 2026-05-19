@@ -43,7 +43,7 @@ public class BookingFormTest {
         // Настройки Selenide
         Configuration.browser = "chrome";
         Configuration.screenshots = true;
-        Configuration.headless = true;
+        Configuration.headless = false;
         //open("http://localhost:3000/");
         open("https://resto.skroy.ru/");
     }
@@ -341,6 +341,95 @@ public class BookingFormTest {
         bookingFormPage.inputValidData();
         bookingFormPage.clearDateField();
         bookingFormPage.setDate(-2); // установить дату на Х дней вперед (- назад)
+
+        bookingFormPage.isSendButtonDisabled();
+        //bookingFormPage.clickSendButton();
+        //bookingFormPage.verifyAlertSuccess();
+        switchTo().defaultContent();
+    }
+    @Test
+    @DisplayName("Пустое поле 'Количество гостей'")
+    @Description("Неуспешная отправка - пустое поле количества гостей")
+    void guestFieldIsEmpty () {
+        MainPage mainPage = new MainPage();
+        DataHelper dataHelper = new DataHelper();
+        var bookingFormPage = mainPage.choiceReservation();
+        switchTo().frame($("iframe"));
+
+        bookingFormPage.inputValidData();
+        bookingFormPage.setGuest(emptyField);
+
+        bookingFormPage.isSendButtonDisabled();
+        //bookingFormPage.clickSendButton();
+        //bookingFormPage.verifyAlertSuccess();
+        switchTo().defaultContent();
+    }
+    @Test
+    @DisplayName("Количество гостей равно нулю")
+    @Description("Неуспешная отправка - цифра 0 в поле количества гостей")
+    void numberOfGuestIsZero () {
+        MainPage mainPage = new MainPage();
+        DataHelper dataHelper = new DataHelper();
+        var bookingFormPage = mainPage.choiceReservation();
+        switchTo().frame($("iframe"));
+
+        bookingFormPage.inputValidData();
+        bookingFormPage.setGuest("0");
+
+        bookingFormPage.isSendButtonDisabled();
+        //bookingFormPage.clickSendButton();
+        //bookingFormPage.verifyAlertSuccess();
+        switchTo().defaultContent();
+    }
+    @Test
+    @DisplayName("Спецсимволы в поле 'Количество гостей'")
+    @Description("Неуспешная отправка - спецсимволы в поле количества гостей")
+    void specSymbolInGuestField () {
+        MainPage mainPage = new MainPage();
+        DataHelper dataHelper = new DataHelper();
+        var bookingFormPage = mainPage.choiceReservation();
+        switchTo().frame($("iframe"));
+
+        bookingFormPage.inputValidData();
+        String specText = DataHelper.generatePhrase("", true,false,4);
+        bookingFormPage.setGuest(specText);
+
+        bookingFormPage.isSendButtonDisabled();
+        //bookingFormPage.clickSendButton();
+        //bookingFormPage.verifyAlertSuccess();
+        switchTo().defaultContent();
+    }
+    @Test
+    @DisplayName("Буквы En в поле 'Количество гостей'")
+    @Description("Неуспешная отправка - буквы в поле количества гостей")
+    void lettersEnInGuestField () {
+        MainPage mainPage = new MainPage();
+        DataHelper dataHelper = new DataHelper();
+        var bookingFormPage = mainPage.choiceReservation();
+        switchTo().frame($("iframe"));
+
+        bookingFormPage.inputValidData();
+        String specText = DataHelper.generatePhrase("en", false,false,4);
+        bookingFormPage.setGuest(specText);
+
+        bookingFormPage.isSendButtonDisabled();
+        //bookingFormPage.clickSendButton();
+        //bookingFormPage.verifyAlertSuccess();
+        switchTo().defaultContent();
+
+    }
+    @Test
+    @DisplayName("Буквы Ru в поле 'Количество гостей'")
+    @Description("Неуспешная отправка - буквы в поле количества гостей")
+    void lettersRuInGuestField () {
+        MainPage mainPage = new MainPage();
+        DataHelper dataHelper = new DataHelper();
+        var bookingFormPage = mainPage.choiceReservation();
+        switchTo().frame($("iframe"));
+
+        bookingFormPage.inputValidData();
+        String specText = DataHelper.generatePhrase("ru", false, false, 4);
+        bookingFormPage.setGuest(specText);
 
         bookingFormPage.isSendButtonDisabled();
         //bookingFormPage.clickSendButton();

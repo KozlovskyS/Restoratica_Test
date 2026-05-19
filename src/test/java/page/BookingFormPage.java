@@ -107,6 +107,7 @@ public class BookingFormPage {
 
     public void setGuest(String number) {
         guestField.shouldBe(visible, Duration.ofSeconds(10));
+        guestField.clear();
         guestField.sendKeys(number);
     }
 
